@@ -6,8 +6,11 @@
 	"author": "Tulsi Prasad",
 	"license": "MIT",
 	"scripts": {
+		"client:install": "cd client && yarn",
 		"start": "node server.js",
-		"server": "nodemon server.js"
+		"server": "nodemon server.js",
+		"client": "cd client && yarn start",
+		"dev": "run-p server client"
 	},
 	"dependencies": {
 		"express": "^4.17.1",
