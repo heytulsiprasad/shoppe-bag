@@ -8,7 +8,8 @@
   "scripts": {
     "server": "node server.js",
     "client": "cd client && yarn start",
-    "start": "run-p server client",
+    "start": "npm run server & (cd client && npm start)",
+    "dev:start": "run-p server client",
     "dev:server": "nodemon server.js",
     "client:install": "cd client && yarn",
     "client:build": "cd client && yarn build",
