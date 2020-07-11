@@ -1,22 +1,25 @@
 {
-	"name": "shopee-bag",
-	"version": "1.0.0",
-	"description": "Shopping List with MERN Stack",
-	"main": "server.js",
-	"author": "Tulsi Prasad",
-	"license": "MIT",
-	"scripts": {
-		"client:install": "cd client && yarn",
-		"start": "node server.js",
-		"server": "nodemon server.js",
-		"client": "cd client && yarn start",
-		"dev": "run-p server client"
-	},
-	"dependencies": {
-		"express": "^4.17.1",
-		"mongoose": "^5.9.22"
-	},
-	"devDependencies": {
-		"npm-run-all": "^4.1.5"
-	}
+  "name": "shopee-bag",
+  "version": "1.0.0",
+  "description": "Shopping List with MERN Stack",
+  "main": "server.js",
+  "author": "Tulsi Prasad",
+  "license": "MIT",
+  "scripts": {
+    "client:install": "cd client && yarn",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd client && yarn start",
+    "client:build": "cd client && yarn build",
+    "dev": "run-p server client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn client && yarn client:build"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.22"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
 }
