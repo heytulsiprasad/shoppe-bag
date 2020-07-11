@@ -6,10 +6,11 @@
   "author": "Tulsi Prasad",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client:install": "cd client && yarn",
+    "server": "node server.js",
     "client": "cd client && yarn start",
+    "start": "run-p server client",
+    "dev:server": "nodemon server.js",
+    "client:install": "cd client && yarn",
     "client:build": "cd client && yarn build",
     "dev": "run-p server client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn client:install && yarn client:build"
