@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const items = require('./routes/api/items');
+const users = require('./routes/api/users');
+const auth = require('./routes/api/auth');
 
 const app = express();
 app.use(express.json());
@@ -20,6 +22,7 @@ const db =
 mongoose.connect(db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 
 mongoose.connection.on('error', (error) =>
@@ -32,6 +35,8 @@ mongoose.connection.once('open', () =>
 
 // Use Routes
 app.use('/api/items', items);
+app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
