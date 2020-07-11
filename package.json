@@ -6,13 +6,16 @@
   "author": "Tulsi Prasad",
   "license": "MIT",
   "scripts": {
-    "client:install": "cd client && yarn",
     "start": "node server.js",
     "server": "nodemon server.js",
+    "client:install": "cd client && yarn",
     "client": "cd client && yarn start",
     "client:build": "cd client && yarn build",
     "dev": "run-p server client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn client && yarn client:build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn client:install && yarn client:build"
+  },
+  "engines": {
+    "node": "12.18.0"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
