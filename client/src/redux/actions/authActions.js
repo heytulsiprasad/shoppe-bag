@@ -91,3 +91,34 @@ export const logout = () => {
     type: LOGOUT_SUCCESS,
   };
 };
+
+// Login User
+export const login = ({ email, password }) => (dispatch) => {
+  // Set headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  // Request body
+  // We are sending data in JSON format, so we need to stringify the objects
+  const body = JSON.stringify({ email, password });
+
+  axios
+    .post('/api/auth', body, config)
+    .then((res) => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+      );
+      dispatch({
+        type: LOGIN_FAIL,
+      });
+    });
+};
