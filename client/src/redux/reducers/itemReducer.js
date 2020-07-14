@@ -3,6 +3,7 @@ import {
   ADD_ITEM,
   DELETE_ITEM,
   ITEMS_LOADING,
+  CLEAR_ITEMS
 } from '../actions/types';
 
 const initialState = {
@@ -32,6 +33,11 @@ function itemReducer(state = initialState, action) {
       return {
         ...state,
         loading: true,
+      };
+    case CLEAR_ITEMS:
+      return {
+        items: [],
+        loading: false,
       };
     default:
       return state;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
+import { clearItems, getItems } from './itemActions';
 
 import {
   USER_LOADED,
@@ -21,12 +22,13 @@ export const loadUser = () => (dispatch, getState) => {
 
   axios
     .get('/api/auth/user', tokenConfig(getState))
-    .then((res) =>
+    .then((res) => {
       dispatch({
         type: USER_LOADED,
         payload: res.data,
-      })
-    )
+      });
+      dispatch(getItems());
+    })
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({ type: AUTH_ERROR });
@@ -86,10 +88,11 @@ export const register = ({ name, email, password }) => (dispatch) => {
 };
 
 // Logout user
-export const logout = () => {
-  return {
+export const logout = () => (dispatch, getState) => {
+  dispatch(clearItems());
+  dispatch({
     type: LOGOUT_SUCCESS,
-  };
+  });
 };
 
 // Login User
@@ -112,6 +115,7 @@ export const login = ({ email, password }) => (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
+      dispatch(getItems());
     })
     .catch((err) => {
       dispatch(

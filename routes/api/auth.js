@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 
 // User Model
-const User = require('../../models/User');
+const User = require('../../models/Users');
 
 // @route POST api/auth
-// @desc Auth user
+// @desc Auth user (Login)
 // @access Public
 
 router.post('/', async (req, res) => {
@@ -42,6 +42,7 @@ router.post('/', async (req, res) => {
             id: user.id,
             name: user.name,
             email: user.email,
+            items: user.items,
           },
         });
       }

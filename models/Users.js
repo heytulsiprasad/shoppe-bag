@@ -1,7 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Create Schema
+// Create Items Schema
+const ItemSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+// Create Users Schema
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -20,6 +32,7 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  items: [ItemSchema],
 });
 
 const User = mongoose.model('user', UserSchema);

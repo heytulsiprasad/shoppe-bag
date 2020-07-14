@@ -38,7 +38,7 @@ class ItemModal extends Component {
     e.preventDefault();
 
     const newItem = {
-      name: this.state.name,
+      title: this.state.name,
     };
 
     //   Add item via addItem action
@@ -59,9 +59,7 @@ class ItemModal extends Component {
           >
             Add Item
           </Button>
-        ) : (
-          <h4 className="mb-3 ml-4">Please log in to manage items</h4>
-        )}
+        ) : null}
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add To Your Shoppe Bag</ModalHeader>

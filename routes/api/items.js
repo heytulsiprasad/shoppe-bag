@@ -3,18 +3,17 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 
 // Item Model
+const Users = require('../../models/Users');
 const Item = require('../../models/Items');
-const { json } = require('express');
-const { remove } = require('../../models/Items');
 
 // @route GET api/items
 // @desc Get All Items
 // @access Public
 
-router.get('/', (req, res) => {
-  Item.find()
+router.get('/', auth, (req, res) => {
+  Users.findById(req.user.id, 'items')
     .sort({ date: -1 }) // descending order
-    .then((items) => res.json(items));
+    .then((items) => res.json(items.items));
 });
 
 // @route POST api/items
@@ -22,11 +21,18 @@ router.get('/', (req, res) => {
 // @access Post
 
 router.post('/', auth, (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-  });
-
-  newItem.save().then((item) => res.json(item));
+  Users.findByIdAndUpdate(
+    req.user.id,
+    {
+      $push: { items: { title: req.body.title } },
+    },
+    {
+      new: true,
+      useFindAndModify: false,
+    }
+  )
+    .then((items) => res.json(items.items[items.items.length - 1]))
+    .catch((err) => console.log(err));
 });
 
 // @route DELETE api/items/:id
@@ -34,9 +40,13 @@ router.post('/', auth, (req, res) => {
 // @access Private
 
 router.delete('/:id', auth, (req, res) => {
-  Item.findById(req.params.id)
-    .then((item) => item.remove().then(() => res.json({ success: true })))
-    .catch((err) => res.status(404).json({ success: false }));
+  Users.findByIdAndUpdate(
+    req.user.id,
+    { $pull: { items: { _id: req.params.id } } },
+    { new: true, useFindAndModify: false }
+  )
+    .then((items) => res.json(items.items))
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

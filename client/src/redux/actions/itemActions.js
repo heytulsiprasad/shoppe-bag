@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
+import {
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  ITEMS_LOADING,
+  CLEAR_ITEMS,
+} from './types';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
@@ -10,10 +16,10 @@ import { returnErrors } from './errorActions';
 // by () => dispatch => { `whatever here`, dispatch({type: "DOTHIS"})}
 // else we can just do return { type: "DOTHIS"}
 
-export const getItems = () => (dispatch) => {
+export const getItems = () => (dispatch, getState) => {
   dispatch(setItemsLoading());
   axios
-    .get('/api/items')
+    .get('/api/items', tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_ITEMS,
@@ -28,6 +34,12 @@ export const getItems = () => (dispatch) => {
 export const setItemsLoading = () => {
   return {
     type: ITEMS_LOADING,
+  };
+};
+
+export const clearItems = () => {
+  return {
+    type: CLEAR_ITEMS,
   };
 };
 
