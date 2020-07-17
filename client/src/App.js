@@ -12,6 +12,7 @@ import { loadUser } from './redux/actions/authActions';
 import Dashboard from './components/Dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import PrivateRoute from './container/PrivateRoute';
 
 class App extends Component {
   componentDidMount() {
@@ -30,9 +31,7 @@ class App extends Component {
                   <ItemModal />
                   <ShoppingList />
                 </Route>
-                <Route exact path="/dashboard">
-                  <Dashboard />
-                </Route>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <Route
                   render={() => <h1>Hey buddy, I assume you're a 404</h1>}
                 />
