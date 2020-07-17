@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -40,7 +41,9 @@ class AppNavbar extends Component {
       <React.Fragment>
         <NavItem>
           <span className="navbar-text mr-3">
-            <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+            <strong>
+              <Link to="/dashboard">{user && user.name}</Link>
+            </strong>
           </span>
         </NavItem>
         <NavItem>
@@ -65,7 +68,6 @@ class AppNavbar extends Component {
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
             <NavbarBrand href="/">Shoppe Bag</NavbarBrand>
-
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>

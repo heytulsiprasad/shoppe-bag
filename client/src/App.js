@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import AppNavbar from './components/AppNavbar';
 import ShoppingList from './components/ShoppingList';
 import ItemModal from './components/ItemModal';
@@ -8,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { loadUser } from './redux/actions/authActions';
 
+import Dashboard from './components/Dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -19,13 +21,25 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <AppNavbar />
-          <Container>
-            <ItemModal />
-            <ShoppingList />
-          </Container>
-        </div>
+        <BrowserRouter>
+          <div className="App">
+            <AppNavbar />
+            <Container>
+              <Switch>
+                <Route exact path="/">
+                  <ItemModal />
+                  <ShoppingList />
+                </Route>
+                <Route exact path="/dashboard">
+                  <Dashboard />
+                </Route>
+                <Route
+                  render={() => <h1>Hey buddy, I assume you're a 404</h1>}
+                />
+              </Switch>
+            </Container>
+          </div>
+        </BrowserRouter>
       </Provider>
     );
   }

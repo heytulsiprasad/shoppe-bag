@@ -14,6 +14,7 @@ import {
 } from './types';
 
 // TODO: Check token & load user
+// Gets all the user data for dashboard
 
 // As we need to make asyncronous calls here with axios, we wrap this with a dispatch
 export const loadUser = () => (dispatch, getState) => {
@@ -27,7 +28,6 @@ export const loadUser = () => (dispatch, getState) => {
         type: USER_LOADED,
         payload: res.data,
       });
-      dispatch(getItems());
     })
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));

@@ -47,7 +47,7 @@ class ShoppingList extends Component {
           </ListGroup>
         ) : (
           <Container>
-            <h1>Welcome to Dope Ass Todos@!#%$</h1>
+            <h1>Welcome to Dope Ass Todos</h1>
             <h2>Login or Signup to add your dope ass stuff!</h2>
           </Container>
         )}
